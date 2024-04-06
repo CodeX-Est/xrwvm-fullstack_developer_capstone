@@ -1,6 +1,5 @@
 # Uncomment the required imports before adding the code
 from .restapis import get_request, analyze_review_sentiments, post_review
-from django.shortcuts import render
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 # from django.shortcuts import get_object_or_404, redirect #***render
@@ -130,10 +129,10 @@ def add_review(request):
     if request.user.is_anonymous is False:
         data = json.loads(request.body)
         try:
-            # response = post_review(data)
+            response = post_review(data)
             return JsonResponse({"status": 200})
         except Exception:
-            return JsonResponse({"status": 401, 
+            return JsonResponse({"status": 401,
                                  "message": "Error in posting review"})
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
